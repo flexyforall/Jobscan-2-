@@ -27,7 +27,9 @@
     scrollLen = Math.max(vh, stageH) * 3.6;
     root.style.setProperty('--s', scale);
     root.style.setProperty('--stage-top', Math.max(0, (vh - stageH) / 2) + 'px');
-    scene.style.height = stageH + scrollLen + 'px';
+    // Leave exactly scrollLen of scrolling even when the window is taller than
+    // the stage, so the scene always reaches its last frame (Desktop 4).
+    scene.style.height = Math.max(vh, stageH) + scrollLen + 'px';
     render();
   }
 
@@ -135,7 +137,8 @@
     // Page background: white → #e8ebf2; Desktop 4 gradient fades in on top
     const bg = mixColor('#ffffff', '#e8ebf2', A);
     el.hero.parentNode.style.background = bg;
-    body.style.background = C > .5 ? '#ffffff' : bg;
+    // Letterbox around the canvas on tall windows: match the outro's top and bottom colours
+    body.style.background = C > .5 ? 'linear-gradient(#e8ebf2 50%, #fff 50%) fixed' : bg;
     el.outroBg.style.opacity = C;
     el.outro.style.transform = `translateY(${(1 - C) * OUTRO_SHIFT}px)`;
 
