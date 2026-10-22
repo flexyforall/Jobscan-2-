@@ -176,7 +176,12 @@
     el.ats.style.left = pw / 2 + 14 - 274 + 'px';
     el.ats.style.opacity = 1 - ease(seg(pA, 0, .5));
 
+    // While the outro comes in, the panel content drifts up faster than the
+    // panel so none of it peeks out of the strip left on screen.
+    const drift = -170 * ease(seg(pC, 0, .8));
+
     panelBox(el.glass, F.glass, pw);
+    el.glass.style.top = v(F.glass.y) + drift + 'px';
     panelBox(el.analyzing, F.analyzing, pw);
     el.analyzing.style.setProperty('--fade', 1 - ease(seg(pB, 0, .5)));
     const lw = v(F.analyzingLine.w);
@@ -186,7 +191,7 @@
     // Cards: the middle Backend card lifts out of the stack and lands on top
     card(el.cardBack, F.cardBack, pw);
     card(el.cardPython, F.cardPython, pw);
-    card(el.cardBackend, F.cardBackend, pw, pA > 0 && pA < 1 ? liftOffset(pA) : 0);
+    card(el.cardBackend, F.cardBackend, pw, (pA > 0 && pA < 1 ? liftOffset(pA) : 0) + drift);
 
     el.cardBack.style.opacity = 1 - ease(seg(pB, 0, .55));
     el.cardPython.style.opacity = 1 - ease(seg(pB, 0, .55));
@@ -206,6 +211,8 @@
     const d3In = ease(seg(pB, .5, 1));
     el.stepsRow.style.opacity = d3In;
     el.lede.style.opacity = d3In;
+    el.stepsRow.style.top = 74 + drift + 'px';
+    el.lede.style.top = 657 + drift + 'px';
     el.match.style.opacity = ease(seg(pB, .55, 1));
     renderCounts(ease(seg(pB, .55, 1)));
   }
@@ -278,19 +285,6 @@
     }
   }
 
-  // Types into a node that has no caret of its own; the caret leaves when done.
-  async function typeWithCaret(node, text, delay, speed) {
-    const out = document.createElement('span');
-    const caret = document.createElement('span');
-    caret.className = 'caret';
-    node.textContent = '';
-    node.append(out, caret);
-    await wait(delay);
-    await typeText(out, text, speed);
-    await wait(900);
-    caret.remove();
-  }
-
   /* ---------- Hero intro ---------- */
 
   // Wraps every word in .{cls} > .{cls}__in so it can rise out of its own mask.
@@ -343,15 +337,6 @@
 
     splitWords(document.querySelector('.hero__text'), 'pw').forEach((word, i) => {
       word.style.setProperty('--d', (.95 + i * .018).toFixed(3) + 's');
-    });
-  }
-
-  function playIntro() {
-    if (reduceMotion) return;
-    document.querySelectorAll('[data-type]').forEach((node) => {
-      const text = node.textContent;
-      const delay = node.closest('.analyzing') ? 1350 : 450;
-      typeWithCaret(node, text, delay, node.closest('.analyzing') ? 34 : 30);
     });
   }
 
@@ -437,7 +422,6 @@
     loader.classList.add('is-done');
     body.classList.remove('is-loading');
     body.classList.add('is-ready');
-    playIntro();
   }
 
   requestAnimationFrame(tickLoader);
