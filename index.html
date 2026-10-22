@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jobscan — The AI Agent for High-Stakes Career Moves</title>
+  <meta name="description" content="Autopilot sources elite roles, aligns your profile with insider ATS logic, and manages applications. You retain absolute control.">
+  <link rel="preload" href="assets/fonts/GeistMono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/DMMono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/LibreBaskerville.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/images/mountains.png" as="image">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="is-loading">
+
+  <!-- Loader (Figma: Loading, nodes 75:3920 / 75:6345) -->
+  <div class="loader" id="loader" aria-live="polite">
+    <div class="loader__canvas canvas">
+      <div class="loader__band"></div>
+      <img class="loader__mountains" src="assets/images/mountains.png" alt="">
+      <img class="loader__wordmark" src="assets/images/jobscan-wordmark.svg" width="1348" height="255.368" alt="Jobscan">
+      <div class="loader__bar is-idle" id="loaderBar">
+        <span class="loader__slashes" id="loaderSlashes"></span>
+        <span class="loader__pct" id="loaderPct">[00%]</span>
+      </div>
+      <p class="loader__caption" id="loaderCaption">Initializing Autopilot Engine...</p>
+    </div>
+  </div>
+
+  <main>
+    <!-- Scroll scene: Desktop 1 → Desktop 2 → Desktop 3 → Desktop 4 -->
+    <section class="scene" id="scene">
+      <div class="stage" id="stage">
+        <div class="canvas" id="canvas">
+          <div class="outro-bg" data-el="outroBg"></div>
+
+          <!-- Desktop 4: section under the Autopilot panel -->
+          <div class="outro" data-el="outro">
+            <h2 class="outro__title">Built to Outsmart the Algorithms of Global Tech.</h2>
+            <img class="outro__dash outro__dash--v" src="assets/images/dash-vertical.png" width="223" height="2" alt="">
+            <img class="outro__dash outro__dash--h" src="assets/images/dash-horizontal.png" width="32" height="2" alt="">
+            <div class="outro__stat">
+              <p class="outro__num">12</p>
+              <p class="outro__label">Years of Deep ATS Reverse-Engineering</p>
+            </div>
+            <ul class="clients" aria-label="Companies whose hiring systems we research">
+              <li class="clients__item"><img class="clients__logo clients__logo--lean" src="assets/logos/lean-solutions.png" alt="Lean Solutions Group"></li>
+              <li class="clients__item"><img class="clients__logo clients__logo--amazon" src="assets/logos/amazon.svg" width="113.27" height="32.535" alt="Amazon"></li>
+              <li class="clients__item"><img class="clients__logo clients__logo--customs" src="assets/logos/customs-direct.png" alt="Customs Direct"></li>
+              <li class="clients__item"><span class="clients__logo clients__logo--nvidia"><img src="assets/logos/nvidia.svg" width="143.233" height="25.2654" alt="NVIDIA"></span></li>
+              <li class="clients__item"><img class="clients__logo clients__logo--google" src="assets/logos/google.png" alt="Google"></li>
+              <li class="clients__item"><img class="clients__logo clients__logo--meta" src="assets/logos/meta.svg" width="125.32" height="24.1" alt="Meta"></li>
+            </ul>
+          </div>
+
+          <!-- Desktop 1: left white half -->
+          <div class="hero" data-el="hero">
+            <div class="hero__inner" data-el="heroInner">
+              <nav class="nav" aria-label="Main" data-intro>
+                <a class="nav__pill nav__pill--logo" href="#" aria-label="Jobscan home">
+                  <img src="assets/logos/jobscan.svg" width="77.355" height="14.6543" alt="Jobscan">
+                </a>
+                <img class="nav__joint" src="assets/icons/menu-joint.svg" width="7" height="10.7108" alt="">
+                <div class="nav__pill nav__pill--links">
+                  <a class="nav__link" href="#how-it-works">How it works</a>
+                  <a class="nav__link" href="#ats-research">ATS Research <span class="nav__chevron"><img src="assets/icons/chevron.svg" width="12.8839" height="6.88388" alt=""></span></a>
+                  <a class="nav__link" href="#coaches">For Coaches</a>
+                </div>
+                <img class="nav__joint" src="assets/icons/menu-joint.svg" width="7" height="10.7108" alt="">
+                <div class="nav__pill nav__pill--cta">
+                  <a class="nav__cta" href="#demo">Book a Demo</a>
+                </div>
+              </nav>
+
+              <div class="hero__copy" data-el="heroCopy">
+                <p class="eyebrow" data-intro>
+                  <img src="assets/icons/spinner.svg" width="15" height="15" alt="">
+                  <span>12 years pioneering ATS research</span>
+                </p>
+                <h1 class="hero__title" data-intro>The AI Agent for High-Stakes <span>Career Moves.</span></h1>
+                <p class="hero__text" data-intro>Autopilot sources elite roles, aligns your profile with insider ATS logic, and manages applications. You retain absolute control.</p>
+              </div>
+
+              <label class="drop" data-el="drop" data-intro>
+                <span class="drop__texture" aria-hidden="true">
+                  <i style="left:0"></i><i style="left:82px"></i><i style="left:164px"></i><i style="left:246px"></i>
+                  <i style="left:328px"></i><i style="left:410px"></i><i style="left:492px"></i><i style="left:574px"></i>
+                  <i class="is-flipped" style="left:41px"></i><i class="is-flipped" style="left:123px"></i>
+                  <i class="is-flipped" style="left:205px"></i><i class="is-flipped" style="left:287px"></i>
+                  <i class="is-flipped" style="left:369px"></i><i class="is-flipped" style="left:451px"></i>
+                  <i class="is-flipped" style="left:533px"></i><i class="is-flipped" style="left:615px"></i>
+                </span>
+                <span class="drop__zone">
+                  <svg class="drop__border" width="594" height="86" viewBox="0 0 594 86" aria-hidden="true"><rect x=".5" y=".5" width="593" height="85" rx="11.5" fill="none" stroke="#fff" stroke-dasharray="8 8"/></svg>
+                  <span class="drop__icon"><img src="assets/icons/arrow-big-down-dash.svg" width="18" height="20" alt=""></span>
+                  <span class="drop__text">
+                    <span class="drop__title">Drop your resume here</span>
+                    <span class="drop__hint" id="dropHint">PDF or DOCX · free scan · no signup required</span>
+                  </span>
+                </span>
+                <input class="drop__input" id="resumeInput" type="file" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+              </label>
+            </div>
+          </div>
+
+          <!-- Desktop 1 right half → Desktop 2/3 Autopilot panel -->
+          <div class="panel" data-el="panel" aria-hidden="true">
+            <img class="panel__mountains" data-el="mountains" src="assets/images/mountains.png" alt="">
+            <div class="panel__grad panel__grad--d1" data-el="grad1"></div>
+            <div class="panel__grad panel__grad--d2" data-el="grad2"></div>
+            <div class="panel__haze" data-el="haze"><img src="assets/images/bottom-haze.png" alt=""></div>
+            <p class="panel__lede" data-el="lede">Autopilot scans the hidden job market, filtering out noise to reveal elite executive roles suited to your leadership profile.</p>
+
+            <div class="ats" data-el="ats">
+              <span class="ats__item"><i class="ats__mark ats__mark--workday"></i></span>
+              <span class="ats__item"><i class="ats__mark ats__mark--taleo"></i></span>
+              <span class="ats__item"><i class="ats__mark ats__mark--greenhouse"></i></span>
+              <span class="ats__item"><i class="ats__mark ats__mark--icims"></i></span>
+            </div>
+
+            <div class="glass" data-el="glass">
+              <div class="match" data-el="match">
+                <p class="match__head">Elite match found</p>
+                <img class="match__line" src="assets/icons/line-match.svg" width="517" height="1" alt="">
+                <dl class="match__scores">
+                  <div class="match__row"><dt>Keyword Match</dt><dd data-count="88" data-suffix="%">88%</dd></div>
+                  <div class="match__row"><dt>ATS Formatting</dt><dd data-count="92" data-suffix="%">92%</dd></div>
+                  <div class="match__row"><dt>Core Skills</dt><dd data-count="14" data-suffix="/15">14/15</dd></div>
+                </dl>
+              </div>
+            </div>
+
+            <!-- Vacancy cards: one layout at the Desktop 3 size (540×224.6), scaled per state -->
+            <div class="vcard vcard--back" data-el="cardBack">
+              <p class="vcard__title">Backend Developer</p>
+              <span class="vcard__chip vcard__chip--feedback">124 feedbacks</span>
+              <span class="vcard__chip vcard__chip--status">open</span>
+              <div class="vcard__detail vcard__detail--exp"><span>exp</span><b>5+ Years</b></div>
+              <i class="vcard__vrule vcard__vrule--1"></i>
+              <div class="vcard__detail vcard__detail--salary"><span>salary</span><b>$85K</b></div>
+              <i class="vcard__vrule vcard__vrule--2"></i>
+              <div class="vcard__detail vcard__detail--team"><span>team</span><b>Payment Team</b></div>
+              <i class="vcard__hrule"></i>
+              <p class="vcard__contact-label">contact person</p>
+              <img class="vcard__portrait" src="assets/images/portrait.png" alt="">
+              <p class="vcard__name">James Wilson</p>
+              <p class="vcard__mail">michael.johnson@company.com</p>
+              <span class="vcard__icon vcard__icon--delete"><img src="assets/icons/delete.svg" alt=""></span>
+              <img class="vcard__icon vcard__icon--edit" src="assets/icons/edit.svg" alt="">
+              <img class="vcard__icon vcard__icon--open" src="assets/icons/open-vacancy.svg" alt="">
+            </div>
+
+            <div class="vcard" data-el="cardPython">
+              <p class="vcard__title">Python Developer</p>
+              <span class="vcard__chip vcard__chip--feedback" data-el="pythonChip">65 feedbacks</span>
+              <div class="vcard__detail vcard__detail--exp"><span>exp</span><b>6+ Years</b></div>
+              <i class="vcard__vrule vcard__vrule--1"></i>
+              <div class="vcard__detail vcard__detail--salary"><span>salary</span><b>$90K</b></div>
+              <i class="vcard__vrule vcard__vrule--2"></i>
+              <div class="vcard__detail vcard__detail--team"><span>team</span><b>API &amp; Integrations</b></div>
+              <i class="vcard__hrule"></i>
+              <p class="vcard__contact-label">contact person</p>
+              <img class="vcard__portrait" src="assets/images/portrait.png" alt="">
+              <p class="vcard__name">Michael Johnson</p>
+              <p class="vcard__mail">michael.johnson@company.com</p>
+              <span class="vcard__icon vcard__icon--delete"><img src="assets/icons/delete.svg" alt=""></span>
+              <img class="vcard__icon vcard__icon--edit" src="assets/icons/edit.svg" alt="">
+              <img class="vcard__icon vcard__icon--open" src="assets/icons/open-vacancy.svg" alt="">
+            </div>
+
+            <div class="vcard" data-el="cardBackend">
+              <p class="vcard__title">Backend Developer</p>
+              <span class="vcard__chip vcard__chip--feedback">124 feedbacks</span>
+              <div class="vcard__detail vcard__detail--exp"><span>exp</span><b>5+ Years</b></div>
+              <i class="vcard__vrule vcard__vrule--1"></i>
+              <div class="vcard__detail vcard__detail--salary"><span>salary</span><b>$85K</b></div>
+              <i class="vcard__vrule vcard__vrule--2"></i>
+              <div class="vcard__detail vcard__detail--team"><span>team</span><b>Payment Team</b></div>
+              <i class="vcard__hrule"></i>
+              <p class="vcard__contact-label">contact person</p>
+              <img class="vcard__portrait" src="assets/images/portrait.png" alt="">
+              <p class="vcard__name">James Wilson</p>
+              <p class="vcard__mail">michael.johnson@company.com</p>
+              <span class="vcard__icon vcard__icon--delete"><img src="assets/icons/delete.svg" alt=""></span>
+              <img class="vcard__icon vcard__icon--edit" src="assets/icons/edit.svg" alt="">
+              <img class="vcard__icon vcard__icon--open" src="assets/icons/open-vacancy.svg" alt="">
+            </div>
+
+            <div class="analyzing" data-el="analyzing">
+              <span class="analyzing__blur"></span>
+              <span class="analyzing__tint"></span>
+              <img class="analyzing__line" data-el="analyzingLine" src="assets/icons/line-analyzing.svg" alt="">
+              <p class="analyzing__text">Analyzing 1,400+ executive roles...</p>
+            </div>
+
+            <ol class="steps steps--row" data-el="stepsRow">
+              <li class="step is-active"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle.svg" alt=""><img class="step__progress" src="assets/icons/step-progress.svg" alt=""><span class="step__num">1</span></span><span class="step__label">Match</span></li>
+              <li class="step"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle-dim.svg" alt=""><span class="step__num">2</span></span><span class="step__label">Optimize</span></li>
+              <li class="step"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle-dim.svg" alt=""><span class="step__num">3</span></span><span class="step__label">Approve</span></li>
+              <li class="step"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle-dim.svg" alt=""><span class="step__num">4</span></span><span class="step__label">Apply &amp; Track</span></li>
+            </ol>
+
+            <ol class="steps steps--col" data-el="stepsCol">
+              <li class="step is-active"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle.svg" alt=""><img class="step__progress" src="assets/icons/step-progress.svg" alt=""><span class="step__num">1</span></span><span class="step__label">Match</span></li>
+              <li class="step"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle.svg" alt=""><span class="step__num">2</span></span><span class="step__label">Optimize</span></li>
+              <li class="step"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle.svg" alt=""><span class="step__num">3</span></span><span class="step__label">Approve</span></li>
+              <li class="step"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle.svg" alt=""><span class="step__num">4</span></span><span class="step__label">Apply &amp; Track</span></li>
+            </ol>
+
+            <div class="panel__shade" data-el="shade"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
