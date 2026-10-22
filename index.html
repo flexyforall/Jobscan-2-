@@ -25,7 +25,7 @@
         <span class="loader__slashes" id="loaderSlashes"></span>
         <span class="loader__pct" id="loaderPct">[00%]</span>
       </div>
-      <p class="loader__caption" id="loaderCaption">Initializing Autopilot Engine...</p>
+      <p class="loader__caption"><span id="loaderCaption">Initializing Autopilot Engine...</span><span class="caret"></span></p>
     </div>
   </div>
 
@@ -58,7 +58,7 @@
           <!-- Desktop 1: left white half -->
           <div class="hero" data-el="hero">
             <div class="hero__inner" data-el="heroInner">
-              <nav class="nav" aria-label="Main" data-intro>
+              <nav class="nav" aria-label="Main">
                 <a class="nav__pill nav__pill--logo" href="#" aria-label="Jobscan home">
                   <img src="assets/logos/jobscan.svg" width="77.355" height="14.6543" alt="Jobscan">
                 </a>
@@ -75,15 +75,15 @@
               </nav>
 
               <div class="hero__copy" data-el="heroCopy">
-                <p class="eyebrow" data-intro>
+                <p class="eyebrow">
                   <img src="assets/icons/spinner.svg" width="15" height="15" alt="">
-                  <span>12 years pioneering ATS research</span>
+                  <span data-type>12 years pioneering ATS research</span>
                 </p>
-                <h1 class="hero__title" data-intro>The AI Agent for High-Stakes <span>Career Moves.</span></h1>
-                <p class="hero__text" data-intro>Autopilot sources elite roles, aligns your profile with insider ATS logic, and manages applications. You retain absolute control.</p>
+                <h1 class="hero__title">The AI Agent for High-Stakes <span class="accent">Career Moves.</span></h1>
+                <p class="hero__text">Autopilot sources elite roles, aligns your profile with insider ATS logic, and manages applications. You retain absolute control.</p>
               </div>
 
-              <label class="drop" data-el="drop" data-intro>
+              <label class="drop" data-el="drop">
                 <span class="drop__texture" aria-hidden="true">
                   <i style="left:0"></i><i style="left:82px"></i><i style="left:164px"></i><i style="left:246px"></i>
                   <i style="left:328px"></i><i style="left:410px"></i><i style="left:492px"></i><i style="left:574px"></i>
@@ -135,8 +135,8 @@
             <!-- Vacancy cards: one layout at the Desktop 3 size (540×224.6), scaled per state -->
             <div class="vcard vcard--back" data-el="cardBack">
               <p class="vcard__title">Backend Developer</p>
-              <span class="vcard__chip vcard__chip--feedback">124 feedbacks</span>
-              <span class="vcard__chip vcard__chip--status">open</span>
+              <span class="vcard__chip vcard__chip--feedback" data-el="backChip">124 feedbacks</span>
+              <span class="vcard__chip vcard__chip--status" data-el="backStatus">open</span>
               <div class="vcard__detail vcard__detail--exp"><span>exp</span><b>5+ Years</b></div>
               <i class="vcard__vrule vcard__vrule--1"></i>
               <div class="vcard__detail vcard__detail--salary"><span>salary</span><b>$85K</b></div>
@@ -192,7 +192,7 @@
               <span class="analyzing__blur"></span>
               <span class="analyzing__tint"></span>
               <img class="analyzing__line" data-el="analyzingLine" src="assets/icons/line-analyzing.svg" alt="">
-              <p class="analyzing__text">Analyzing 1,400+ executive roles...</p>
+              <p class="analyzing__text" data-type>Analyzing 1,400+ executive roles...</p>
             </div>
 
             <ol class="steps steps--row" data-el="stepsRow">
@@ -200,13 +200,6 @@
               <li class="step"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle-dim.svg" alt=""><span class="step__num">2</span></span><span class="step__label">Optimize</span></li>
               <li class="step"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle-dim.svg" alt=""><span class="step__num">3</span></span><span class="step__label">Approve</span></li>
               <li class="step"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle-dim.svg" alt=""><span class="step__num">4</span></span><span class="step__label">Apply &amp; Track</span></li>
-            </ol>
-
-            <ol class="steps steps--col" data-el="stepsCol">
-              <li class="step is-active"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle.svg" alt=""><img class="step__progress" src="assets/icons/step-progress.svg" alt=""><span class="step__num">1</span></span><span class="step__label">Match</span></li>
-              <li class="step"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle.svg" alt=""><span class="step__num">2</span></span><span class="step__label">Optimize</span></li>
-              <li class="step"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle.svg" alt=""><span class="step__num">3</span></span><span class="step__label">Approve</span></li>
-              <li class="step"><span class="step__badge"><img class="step__ring" src="assets/icons/step-circle.svg" alt=""><span class="step__num">4</span></span><span class="step__label">Apply &amp; Track</span></li>
             </ol>
 
             <div class="panel__shade" data-el="shade"></div>

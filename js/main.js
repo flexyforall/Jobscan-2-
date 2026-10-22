@@ -62,13 +62,16 @@
     grad: { dx: [1, 176.5, 17.5, 17.5], y: [0, -154, -309, -309], w: [696, 1465, 1465, 1465], h: [810, 1070, 1070, 1070] },
     hazeBottom: [0, 0, 0, -34],
     hazeDx: [0, 0, 0, 22],
-    glass: { dx: [1, .5, -.5, .5], y: [233, 212, 213, 135], w: [417, 585, 567, 685], h: [344, 338, 392, 457] },
+    // Desktop 4 keeps the Desktop 3 plate so the match result rides up with the panel
+    glass: { dx: [1, .5, -.5, -.5], y: [233, 212, 213, 213], w: [417, 585, 567, 567], h: [344, 338, 392, 392] },
     analyzing: { dx: [1, .5, -.5, -.5], y: [390, 353, 416, 416], w: [399, 567, 567, 567], h: [180, 189, 189, 189] },
     analyzingLine: { dx: [4.5, .5, .5, .5], w: [360, 520, 520, 520] },
     // vacancy cards: dx of the card centre, top, scale of the 540.028px card
     cardBack:    { dx: [1, .5, 0, 0], y: [287.98, 247.95, 200, 200], s: [.45368, .54973, .7, .7] },
     cardPython:  { dx: [1, .5, 0, 0], y: [310.76, 275.55, 230, 230], s: [.66478, .80551, .85, .85] },
     cardBackend: { dx: [1, .5, .01, .01], y: [296, 188.6, 176, 176], s: [.54257, .65742, 1, 1], r: [18.555, 18.555, 13.55, 13.55] },
+    // back card: Desktop 1 has the feedback chip at the right edge and no status; Desktop 2 adds "open"
+    backChipX: [415.95, 356.44, 356.44, 356.44],
   };
 
   const CARD_W = 540.028;
@@ -187,7 +190,6 @@
 
     el.cardBack.style.opacity = 1 - ease(seg(pB, 0, .55));
     el.cardPython.style.opacity = 1 - ease(seg(pB, 0, .55));
-    el.cardBackend.style.opacity = 1 - ease(seg(pC, 0, .4));
     el.cardBackend.style.zIndex = pA >= .5 ? 7 : 5;
     el.cardPython.style.zIndex = 6;
 
@@ -195,14 +197,17 @@
     el.cardBackend.style.borderRadius = v(F.cardBackend.r) + 'px';
     el.cardPython.style.background = mixColor('#faf9f6', '#eae9e6', A);
     el.pythonChip.style.background = mixColor('#f0eee5', '#e0ded6', A);
+    el.backChip.style.left = v(F.backChipX) + 'px';
+    const status = ease(seg(pA, .35, 1));
+    el.backStatus.style.opacity = status;
+    el.backStatus.style.transform = `scale(${lerp(.6, 1, status)})`;
 
-    // Desktop 3 content
-    const d3In = ease(seg(pB, .5, 1)) * (1 - ease(seg(pC, 0, .4)));
+    // Desktop 3 content stays put and leaves with the panel
+    const d3In = ease(seg(pB, .5, 1));
     el.stepsRow.style.opacity = d3In;
     el.lede.style.opacity = d3In;
-    el.match.style.opacity = ease(seg(pB, .55, 1)) * (1 - ease(seg(pC, 0, .4)));
+    el.match.style.opacity = ease(seg(pB, .55, 1));
     renderCounts(ease(seg(pB, .55, 1)));
-    el.stepsCol.style.opacity = ease(seg(pC, .35, 1));
   }
 
   // Extra vertical offset that makes the Backend card rise above the Python
@@ -254,6 +259,102 @@
   }));
   drop.addEventListener('drop', (e) => takeFile(e.dataTransfer.files[0]));
 
+  /* ---------- Typing ---------- */
+
+  const wait = (ms) => new Promise((res) => setTimeout(res, ms));
+  const keyDelay = (speed) => speed * (.55 + Math.random() * .9);
+
+  async function typeText(node, text, speed = 36) {
+    for (let i = node.textContent.length; i <= text.length; i += 1) {
+      node.textContent = text.slice(0, i);
+      await wait(keyDelay(speed));
+    }
+  }
+
+  async function eraseText(node, speed = 16) {
+    while (node.textContent.length) {
+      node.textContent = node.textContent.slice(0, -1);
+      await wait(speed);
+    }
+  }
+
+  // Types into a node that has no caret of its own; the caret leaves when done.
+  async function typeWithCaret(node, text, delay, speed) {
+    const out = document.createElement('span');
+    const caret = document.createElement('span');
+    caret.className = 'caret';
+    node.textContent = '';
+    node.append(out, caret);
+    await wait(delay);
+    await typeText(out, text, speed);
+    await wait(900);
+    caret.remove();
+  }
+
+  /* ---------- Hero intro ---------- */
+
+  // Wraps every word in .{cls} > .{cls}__in so it can rise out of its own mask.
+  // Hyphenated words are split after the hyphen to keep the original line breaks.
+  function splitWords(node, cls) {
+    const words = [];
+    const walk = (parent) => {
+      Array.from(parent.childNodes).forEach((child) => {
+        if (child.nodeType === Node.ELEMENT_NODE) {
+          walk(child);
+          return;
+        }
+        if (child.nodeType !== Node.TEXT_NODE) return;
+        const frag = document.createDocumentFragment();
+        child.textContent.split(/(\s+)/).forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            frag.append(part);
+            return;
+          }
+          part.split(/(?<=-)/).forEach((piece, i) => {
+            if (i) frag.append(document.createElement('wbr'));
+            const word = document.createElement('span');
+            const inner = document.createElement('span');
+            word.className = cls;
+            inner.className = `${cls}__in`;
+            inner.textContent = piece;
+            word.append(inner);
+            frag.append(word);
+            words.push(word);
+          });
+        });
+        parent.replaceChild(frag, child);
+      });
+    };
+    walk(node);
+    return words;
+  }
+
+  function prepareIntro() {
+    const title = document.querySelector('.hero__title');
+    const titleWords = splitWords(title, 'word');
+    title.classList.add('is-split');
+    // Each word carries its slice of the title's left-to-right gradient
+    title.style.setProperty('--tw', title.offsetWidth + 'px');
+    titleWords.forEach((word, i) => {
+      word.style.setProperty('--d', (.45 + i * .06).toFixed(3) + 's');
+      word.firstChild.style.setProperty('--wx', -(word.offsetLeft - title.offsetLeft) + 'px');
+    });
+
+    splitWords(document.querySelector('.hero__text'), 'pw').forEach((word, i) => {
+      word.style.setProperty('--d', (.95 + i * .018).toFixed(3) + 's');
+    });
+  }
+
+  function playIntro() {
+    if (reduceMotion) return;
+    document.querySelectorAll('[data-type]').forEach((node) => {
+      const text = node.textContent;
+      const delay = node.closest('.analyzing') ? 1350 : 450;
+      typeWithCaret(node, text, delay, node.closest('.analyzing') ? 34 : 30);
+    });
+  }
+
   /* ---------- Loader ---------- */
 
   const loader = document.getElementById('loader');
@@ -282,6 +383,29 @@
   let done = 0;
   tasks.forEach((t) => t.then(() => { done += 1; }));
 
+  // Caption: type the first line, swap to the second at 50%, finish only once it is typed
+  let captionStep = 'typing';
+  if (reduceMotion) {
+    captionStep = 'first';
+  } else {
+    caption.textContent = '';
+    wait(250).then(() => typeText(caption, CAPTIONS[0])).then(() => { captionStep = 'first'; });
+  }
+
+  function switchCaption() {
+    captionStep = 'switching';
+    if (reduceMotion) {
+      caption.textContent = CAPTIONS[1];
+      captionStep = 'second';
+      return;
+    }
+    eraseText(caption)
+      .then(() => wait(180))
+      .then(() => typeText(caption, CAPTIONS[1]))
+      .then(() => wait(500))
+      .then(() => { captionStep = 'second'; });
+  }
+
   const start = performance.now();
   let shown = 0;
 
@@ -297,9 +421,9 @@
     pctNode.textContent = `[${String(pct).padStart(2, '0')}%]`;
     if (pct > 0) bar.classList.remove('is-idle');
     slashes.textContent = '/'.repeat(Math.round((shown / 57) * SLASHES_AT_57));
-    caption.textContent = CAPTIONS[shown < 50 ? 0 : 1];
+    if (shown >= 50 && captionStep === 'first') switchCaption();
 
-    if (shown >= 100) {
+    if (shown >= 100 && captionStep === 'second') {
       setTimeout(finishLoader, reduceMotion ? 0 : 350);
       return;
     }
@@ -307,11 +431,13 @@
   }
 
   function finishLoader() {
+    window.scrollTo(0, 0);
+    render();
+    prepareIntro();
     loader.classList.add('is-done');
     body.classList.remove('is-loading');
     body.classList.add('is-ready');
-    window.scrollTo(0, 0);
-    render();
+    playIntro();
   }
 
   requestAnimationFrame(tickLoader);
