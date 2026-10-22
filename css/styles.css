@@ -1,9 +1,12 @@
 /* Jobscan — Concept 2 (Figma node 67:1271).
    Every frame is laid out on a 1440×810 canvas in Figma pixels; the canvas is
-   scaled to the viewport width (--s), so at 1440px wide it renders 1:1. */
+   scaled to the viewport width (--s), so at 1440px wide it renders 1:1. On
+   windows wider than 16:9 it is fitted to the height instead and grows wider
+   (--cw); the Autopilot panel and centred pieces take up the extra width. */
 
 :root {
   --s: 1;
+  --cw: 1440px;
   --stage-top: 0px;
 
   --blue: #0044c1;
@@ -56,7 +59,7 @@ a { color: inherit; text-decoration: none; }
   position: absolute;
   left: 0;
   top: 0;
-  width: 1440px;
+  width: var(--cw);
   height: 810px;
   overflow: hidden;
   transform: scale(var(--s));
@@ -95,7 +98,7 @@ a { color: inherit; text-decoration: none; }
   position: absolute;
   left: 0;
   top: 0;
-  width: 1440px;
+  width: 100%;
   height: 273px;
   background: var(--loader-band);
 }
@@ -104,7 +107,7 @@ a { color: inherit; text-decoration: none; }
   position: absolute;
   left: 0;
   top: 273px;
-  width: 1440px;
+  width: 100%;
   height: 814px;
   object-fit: cover;
   mix-blend-mode: luminosity;
@@ -115,7 +118,7 @@ a { color: inherit; text-decoration: none; }
 
 .loader__wordmark {
   position: absolute;
-  left: 46px;
+  left: calc(50% - 674px);
   top: -57px;
   width: 1348px;
   height: 255.368px;
@@ -123,7 +126,7 @@ a { color: inherit; text-decoration: none; }
 
 .loader__bar {
   position: absolute;
-  left: 720px;
+  left: 50%;
   top: 406px;
   width: 542px;
   height: 50px;
@@ -166,7 +169,7 @@ a { color: inherit; text-decoration: none; }
 
 .loader__caption {
   position: absolute;
-  left: 449px;
+  left: calc(50% - 271px);
   top: 446px;
   width: 542px;
   font-family: var(--font-dm-mono);
@@ -426,7 +429,7 @@ a { color: inherit; text-decoration: none; }
   background: linear-gradient(to bottom, rgba(0, 68, 193, .5), rgba(0, 32, 91, .5));
 }
 
-.panel__haze { width: 1400px; height: 212px; filter: blur(4.5px); }
+.panel__haze { height: 212px; filter: blur(4.5px); }
 .panel__haze img { width: 100%; height: 100%; object-fit: cover; }
 
 .panel__lede {
@@ -781,7 +784,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .clients {
-  left: 637px;
+  right: 60.72px;
   top: 440px;
   width: 742.28px;
   display: flex;

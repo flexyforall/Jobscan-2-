@@ -18,11 +18,17 @@
   const scene = document.getElementById('scene');
   let scale = 1;
   let scrollLen = 0;
+  let extraW = 0; // canvas px added to the 1440 width on short, wide windows
 
   function resize() {
     const vw = root.clientWidth;
     const vh = window.innerHeight;
-    scale = vw / CANVAS_W;
+    // Fit the 810px height when the window is wider than 16:9 so nothing is
+    // cut off at the bottom; the extra width goes to the Autopilot panel.
+    scale = Math.min(vw / CANVAS_W, vh / CANVAS_H);
+    const canvasW = vw / scale;
+    extraW = canvasW - CANVAS_W;
+    root.style.setProperty('--cw', canvasW + 'px');
     const stageH = CANVAS_H * scale;
     scrollLen = Math.max(vh, stageH) * 3.6;
     root.style.setProperty('--s', scale);
@@ -96,9 +102,20 @@
     node.style.height = h + 'px';
   }
 
-  function panelBox(node, g, pw) {
-    const w = v(g.w);
+  function panelBox(node, g, pw, grow = 0) {
+    const w = v(g.w) + grow;
     box(node, pw / 2 + v(g.dx) - w / 2, v(g.y), w, v(g.h));
+  }
+
+  // Mountains keep their proportions and are enlarged about their centre
+  // whenever a wider panel would otherwise uncover their sides.
+  function mountainsBox(node, pw) {
+    const g = F.mountains;
+    const k = Math.max(1, (pw + 2 * Math.abs(v(g.dx))) / v(g.w));
+    const w = v(g.w) * k;
+    const h = v(g.h) * k;
+    const cy = v(g.y) + v(g.h) / 2;
+    box(node, pw / 2 + v(g.dx) - w / 2, cy - h / 2, w, h);
   }
 
   function card(node, g, pw, extraTop = 0) {
@@ -154,25 +171,26 @@
 
     // Autopilot panel
     const pg = F.panel;
-    const pw = v(pg.w);
+    const pw = v(pg.w) + extraW;
     const ph = v(pg.h);
     box(el.panel, v(pg.x), v(pg.y), pw, ph);
     el.panel.style.borderRadius = v(pg.r) + 'px';
     el.panel.style.background = mixColor('#0044c1', '#020202', A);
 
-    panelBox(el.mountains, F.mountains, pw);
-    panelBox(el.grad1, F.grad, pw);
-    panelBox(el.grad2, F.grad, pw);
+    mountainsBox(el.mountains, pw);
+    panelBox(el.grad1, F.grad, pw, extraW);
+    panelBox(el.grad2, F.grad, pw, extraW);
     el.grad1.style.opacity = 1 - A;
     el.grad2.style.opacity = A * (1 - C);
 
-    el.haze.style.left = pw / 2 + v(F.hazeDx) - 700 + 'px';
+    el.haze.style.width = 1400 + extraW + 'px';
+    el.haze.style.left = pw / 2 + v(F.hazeDx) - (1400 + extraW) / 2 + 'px';
     el.haze.style.top = ph - 212 - v(F.hazeBottom) + 'px';
     el.haze.style.opacity = B;
 
-    el.shade.style.left = pw / 2 + .5 - 677.5 + 'px';
+    el.shade.style.left = pw / 2 + .5 - (1355 + extraW) / 2 + 'px';
     el.shade.style.top = '-65px';
-    el.shade.style.width = '1355px';
+    el.shade.style.width = 1355 + extraW + 'px';
     el.shade.style.height = '851px';
     el.shade.style.opacity = C;
 
